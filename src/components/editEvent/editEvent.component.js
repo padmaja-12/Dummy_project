@@ -12,17 +12,65 @@ export default class EditTodo extends Component {
         endTime: '',
         completed : false,
     }
+    onChangeName = (e) => {
+        this.setState({
+            name: e.target.value
+        });
+    }
 
+    onChangeDescription = (e) => {
+        this.setState({
+            description: e.target.value
+        });
+    }
+    onChangeDate= (e) => {
+        this.setState({
+            date: e.target.value
+        });
+    }
+    onChangeStartTime = (e) => {
+        this.setState({
+            startTime: e.target.value
+        });
+    }
+    onChangeEndTime = (e) => {
+        this.setState({
+            endTime: e.target.value
+        });
+    }
+
+    onChangeTodoCompleted = (e)=> {
+        this.setState({
+            completed: !this.state.completed
+        });
+    }
+    onSubmit = (e) => {
+        e.preventDefault();
+        const obj = {
+            name: this.state.name,
+            guestNo: this.state.guestNo,
+            date: this.state.date,
+            startTime: this.state.startTime,
+            endTime: this.state.endTime,
+            completed: this.state.completed
+        };
+        console.log(obj);
+        axios.put('http://localhost:4000/update/'+this.props.match.params.id, obj)
+            .then(res => console.log(res.data));
+        
+        this.props.history.push('/');
+    }
     componentDidMount() {
         axios.get('http://localhost:4000/'+this.props.match.params.id)
             .then(response => {
                 this.setState({
-                    name : response.name,
-                    description : this.state.description,
-                    date : response.date,
-                    startTime : response.startTime,
-                    endTime : response.endTime
-                })   
+                    name : response.data.name,
+                    guestNo : response.data.guestNo,
+                    date : response.data.date,
+                    startTime : response.data.startTime,
+                    endTime : response.data.endTime
+                });
+                console.log(response);   
             })
             .catch(function (error) {
                 console.log(error);
@@ -35,56 +83,48 @@ export default class EditTodo extends Component {
                 <h3 align="center">Update Event</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
-                        <label>Description: </label>
+                        <label>Name: </label>
                         <input  type="text"
                                 className="form-control"
-                                value={this.state.todo_description}
-                                onChange={this.onChangeTodoDescription}
+                                value={this.state.name}
+                                onChange={this.onChangeName}
                                 />
                     </div>
                     <div className="form-group">
-                        <label>Responsible: </label>
+                        <label>No. of Guests: </label>
                         <input 
                                 type="text" 
                                 className="form-control"
-                                value={this.state.todo_responsible}
-                                onChange={this.onChangeTodoResponsible}
+                                value={this.state.guestNo}
+                                onChange={this.onChangeDescription}
                                 />
                     </div>
                     <div className="form-group">
-                        <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="priorityOptions" 
-                                    id="priorityLow" 
-                                    value="Low"
-                                    checked={this.state.todo_priority==='Low'} 
-                                    onChange={this.onChangeTodoPriority}
-                                    />
-                            <label className="form-check-label">Low</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="priorityOptions" 
-                                    id="priorityMedium" 
-                                    value="Medium" 
-                                    checked={this.state.todo_priority==='Medium'} 
-                                    onChange={this.onChangeTodoPriority}
-                                    />
-                            <label className="form-check-label">Medium</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="priorityOptions" 
-                                    id="priorityHigh" 
-                                    value="High" 
-                                    checked={this.state.todo_priority==='High'} 
-                                    onChange={this.onChangeTodoPriority}
-                                    />
-                            <label className="form-check-label">High</label>
-                        </div>
+                        <label>Date: </label>
+                        <input 
+                                type="text" 
+                                className="form-control"
+                                value={this.state.date}
+                                onChange={this.onChangeDate}
+                                />
+                    </div>
+                    <div className="form-group">
+                        <label>Start-Time: </label>
+                        <input 
+                                type="text" 
+                                className="form-control"
+                                value={this.state.startTime}
+                                onChange={this.onChangeStartTime}
+                                />
+                    </div>
+                    <div className="form-group">
+                        <label>End-Time: </label>
+                        <input 
+                                type="text" 
+                                className="form-control"
+                                value={this.state.endTime}
+                                onChange={this.onChangeEndTime}
+                                />
                     </div>
                     <div className="form-check">
                         <input  className="form-check-input"
@@ -92,8 +132,8 @@ export default class EditTodo extends Component {
                                 type="checkbox"
                                 name="completedCheckbox"
                                 onChange={this.onChangeTodoCompleted}
-                                checked={this.state.todo_completed}
-                                value={this.state.todo_completed}
+                                checked={this.state.completed}
+                                value={this.state.completed}
                                 />
                         <label className="form-check-label" htmlFor="completedCheckbox">
                             Completed
@@ -103,7 +143,7 @@ export default class EditTodo extends Component {
                     <br />
 
                     <div className="form-group">
-                        <input type="submit" value="Update Todo" className="btn btn-primary" />
+                        <input type="submit" value="Update Event" className="btn btn-primary" />
                     </div>
                 </form>
             </div>

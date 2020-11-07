@@ -4,7 +4,7 @@ export default class CreateTodo extends Component {
 
     state = {
         name: '',
-        description: '',
+        guestNo: '',
         date: '',
         startTime: '',
         endTime: '',
@@ -19,7 +19,7 @@ export default class CreateTodo extends Component {
     }
     onChangeDescription = (e) => {
         this.setState({
-            description: e.target.value
+            guestNo: e.target.value
         });
     }
     onChangeDate = (e)  => {
@@ -49,7 +49,7 @@ export default class CreateTodo extends Component {
 
         const newData = {
             name: this.state.name,
-            description: this.state.description,
+            guestNo: this.state.guestNo,
             date: this.state.date,
             startTime: this.state.startTime,
             endTime: this.state.endTime,
@@ -74,7 +74,7 @@ export default class CreateTodo extends Component {
     handleValidation = () => {
         let fields = {
             name : this.state.name,
-            description : this.state.description,
+            guestNo : this.state.guestNo,
             date : this.state.date,
             startTime : this.state.startTime,
             endTime : this.state.endTime
@@ -86,12 +86,6 @@ export default class CreateTodo extends Component {
         if(!fields["name"]){
            formIsValid = false;
            errors["name"] = "Cannot be empty";
-        }
-        if( fields["name"].length > 0 ){
-           if(!fields["name"].match(/^[a-zA-Z]+$/)){
-              formIsValid = false;
-              errors["name"] = "Only letters"
-           }        
         }
         if(!fields["guestNo"]){
             formIsValid = false;
@@ -157,7 +151,7 @@ export default class CreateTodo extends Component {
                                 value={this.state.description}
                                 onChange={this.onChangeDescription}
                                 />
-                        <span style={{color: "red"}}>{this.state.errors.description}</span>
+                        <span style={{color: "red"}}>{this.state.errors.guestNo}</span>
                     </div>
                     <div className="form-group">
                         <label>Date: </label>

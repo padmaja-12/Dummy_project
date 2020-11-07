@@ -2,18 +2,34 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Todo = props => (
+
+const Todo = props => {
+    let edit = null;
+    if(props.todo.completed) {
+       edit = (
+           <td>
+              <button>Completed</button>
+           </td>
+       )
+    }
+    else {
+        edit = (
+        <td>
+            <Link to={"/edit/"+props.todo._id}>Edit</Link>
+        </td>
+        )
+    }
+    return (
     <tr>
         <td className={props.todo.completed ? 'completed' : ''}>{props.todo.name}</td>
         <td className={props.todo.completed ? 'completed' : ''}>{props.todo.date}</td>
         <td className={props.todo.completed ? 'completed' : ''}>{props.todo.description}</td>
         <td className={props.todo.completed ? 'completed' : ''}>{props.todo.startTime}</td>
         <td className={props.todo.completed ? 'completed' : ''}>{props.todo.endTime}</td>
-        <td>
-            <Link to={"/edit/"+props.todo._id}>Edit</Link>
-        </td>
+        {edit}
     </tr>
-)
+    )
+}
 
 export default class TodosList extends Component {
 
@@ -26,6 +42,7 @@ export default class TodosList extends Component {
         axios.get('http://localhost:4000/')
             .then(response => {
                 this.setState({ events: response.data });
+                console.log(this.state.events);
             })
             .catch(function (error){
                 console.log(error);
@@ -64,7 +81,7 @@ export default class TodosList extends Component {
             data = (
                 <div>
                     <h5>No event created yet!!</h5>
-                    <button className = "btn btn-dark btn-lg"><Link to="/create">Create Your First Event</Link></button>
+                    <button className = "btn btn-light btn-lg"><Link to="/create">Create Your First Event</Link></button>
                 </div>
             );
         }
