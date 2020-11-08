@@ -207,14 +207,23 @@ export default class SignUpForm extends Component {
             errors: newErrors
           });
         } else {
-            axios.post('http://localhost:4000/login', user)
+            axios.post('http://localhost:4000/signup', user)
             .then(res => {
-                console.log(res.data)
-            this.setState({
-                user: {},
-                errors : {}
-                });
+              if(res.data.status === "404"){
+                alert(res.data.data.message);
+              }
+              else {
+                this.setState({
+                  user: {},
+                  errors : {}
+                  });
+                  window.location.href = '/event';
+                  console.log(this)
+              }
             })
+          .catch(err => {
+            alert("Please Login Again with correct username and Password");
+          });
         }
       }
     );

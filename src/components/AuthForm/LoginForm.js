@@ -1,20 +1,19 @@
 import React, { Component } from "react";
 import "./AuthForm.css";
 import axios from 'axios';
-import { Redirect } from "react-router-dom";
 
 export default class LoginForm extends Component {
   constructor() {
     super();
     this.state = {
-      fields: ["emailAddress", "password"],
+      fields: ["username", "password"],
       fieldDetails: [
         {
-          fieldName: "emailAddress",
-          label: "Email Address",
-          type: "email",
-          placeholderMessage: "Enter your email address.",
-          requiredErrorMessage: "Please enter your email address."
+          fieldName: "username",
+          label: "Username",
+          type: "username",
+          placeholderMessage: "Enter your username.",
+          requiredErrorMessage: "Please enter your username."
         },
         {
           fieldName: "password",
@@ -26,7 +25,8 @@ export default class LoginForm extends Component {
         }
       ],
       user: {},
-      errors: {}
+      errors: {},
+      userId : null,
     };
   }
 
@@ -104,15 +104,25 @@ export default class LoginForm extends Component {
     console.log(this.state.user);
     axios.post('http://localhost:4000/login', this.state.user)
             .then(res => {
-                console.log(res.data)
-            this.setState({
-                user: {},
-                errors : {}
-                });
-            <Redirect></Redirect>
-            })
+                console.log(res)
+                if(res.data.status === "404"){
+                  alert(res.data.data.message);
+                }
+                else {
+                  this.setState({
+                    user: {},
+                    errors : {}
+                    });
+                    this.props.userId = res.data.data._id;
+                    //console.log(this.props.data.data)
+                }
     console.log("Button Clicked");
-  };
+            })
+            .catch(err => {
+              alert("Please Login Again with correct username and Password");
+              console.log(err);
+            });
+          }
 
   render() {
     const { fieldDetails, user, errors } = this.state;

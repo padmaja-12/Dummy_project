@@ -42,7 +42,7 @@ export default class TodosList extends Component {
         axios.get('http://localhost:4000/')
             .then(response => {
                 this.setState({ events: response.data });
-                console.log(this.state.events);
+                console.log(response);
             })
             .catch(function (error){
                 console.log(error);

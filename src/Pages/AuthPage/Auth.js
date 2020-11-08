@@ -12,7 +12,7 @@ export default class AuthPage extends Component {
     if (match.path === "/sign-up") {
       formJSX = <SignUpForm />;
     } else if (match.path === "/login") {
-      formJSX = <LoginForm />;
+      formJSX = <LoginForm userId={this.props.userId}/>;
     }
 
     return <div className="AuthPage-container">{formJSX}</div>;

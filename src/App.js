@@ -11,6 +11,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 
 class App extends Component {
+  state = {
+    userId : null
+  }
   render() {
     return (
       <Switch>
@@ -23,7 +26,7 @@ class App extends Component {
             <div className="collpase navbar-collapse">
               <ul className="navbar-nav mr-auto">
                 <li className="navbar-item">
-                  <Link to="/" className="nav-link">Events</Link>
+                  <Link to="/event" className="nav-link">Events</Link>
                 </li>
                 <li className="navbar-item">
                   <Link to="/create" className="nav-link">Create Event</Link>
@@ -36,7 +39,7 @@ class App extends Component {
         <Route path="/event" exact component={EventList} />
         <Route path="/edit/:id" exact component={EditEvent} />
         <Route path="/create" exact component={CreateEvent} />
-        <Route path="/login" exact component={props => <AuthPage match={props.match} />} />
+        <Route path="/login" exact component={props => <AuthPage userId= {this.state.userId} match={props.match} />} />
         <Route path="/sign-up" exact component={props => <AuthPage match={props.match} />}/>
         </div>
       </Switch>
