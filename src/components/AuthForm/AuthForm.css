@@ -1,0 +1,83 @@
+.SignUpForm-container {
+    margin: 50px auto;
+    width: 500px;
+    border: 2px solid #555555;
+}
+
+.SignUpForm-header {
+    height: 50px;
+    width: auto;
+    margin: 0px;
+    padding: 5px;
+    background-color: rgb(199, 209, 212);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.SignUpForm-title {
+    padding: 5px 5px 5px 5px;
+    margin: 0px;
+}
+
+.SignUpForm-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding : 10px
+}
+
+.SignUpForm-input-group {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 10px 20px 0 20px;
+}
+
+.SignUpForm-input-group > * {
+    padding: 5px;
+}
+
+.SignUpForm-label {
+    font-weight: 700;
+    font-size: 1.1em;
+    margin: 0 0 0 3px;
+    color: rgb(42, 42, 49);
+}
+
+.SignUpForm-input {
+    font-size: 1.1em;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.SignUpForm-input-group > .SignUpForm-error {
+    font-size: 1em;
+    color: red;
+    padding: 0px;
+    margin: 3px 0 0 7px;
+}
+
+.SignUpForm-button {
+    height: 40px;
+    width: 150px;
+    font-size: 1em;
+    background-color: rgb(138, 214, 138);
+    margin: 10px 0 20px 0;
+    border-radius: 20px;
+    padding : 5px 5px 5px 5px;
+}
+
+.SignUpForm-button:focus {
+    outline: none;
+}
+
+.button-disabled {
+    opacity: 0.5;
+}
+
+.button-disabled:hover {
+    cursor: not-allowed;
+}

@@ -67,6 +67,7 @@ export default class CreateTodo extends Component {
                 completed: false,
                 errors : {}
                 })
+                this.props.history.push('/events');
          }else{
             alert("Form has errors.")
          }

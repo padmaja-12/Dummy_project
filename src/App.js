@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Switch, Route, Link } from "react-router-dom";
 import CreateEvent from "./components/createEvent/createEvent.component";
 import EditEvent from "./components/editEvent/editEvent.component";
 import EventList from "./components/eventList/eventList.component";
+import AuthPage from "./Pages/AuthPage/Auth";
+import Homepage from "./components/Homepage";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
@@ -11,7 +13,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Switch>
         <div className="container">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand" href="/" target="_blank">
@@ -30,11 +32,14 @@ class App extends Component {
             </div>
           </nav>
           <br/>
-        <Route path="/" exact component={EventList} />
-        <Route path="/edit/:id" component={EditEvent} />
-        <Route path="/create" component={CreateEvent} />
+          <Route path="/" exact component={Homepage} />
+        <Route path="/event" exact component={EventList} />
+        <Route path="/edit/:id" exact component={EditEvent} />
+        <Route path="/create" exact component={CreateEvent} />
+        <Route path="/login" exact component={props => <AuthPage match={props.match} />} />
+        <Route path="/sign-up" exact component={props => <AuthPage match={props.match} />}/>
         </div>
-      </Router>
+      </Switch>
       
     );
   }
